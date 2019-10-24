@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+      </ion-buttons>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">{{pokemon?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="pokemon">
+    <ion-slides mode="ios" pager="true" [options]="sliderOpts" >
+      <ion-slide *ngFor="let img of pokemon.images">
+        <img [src]="img" style="height: 250px;">
+      </ion-slide>
+    </ion-slides>
+    
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title size="12" class="ion-text-capitalize"> #{{pokemon.id}} {{pokemon.name}}</ion-card-title>
+        <ion-chip color="primary" *ngFor="let t of pokemon.types">
+          <ion-label>{{t.type.name}}</ion-label>
+        </ion-chip>
+        <ion-card-subtitle>{{pokemon.weight}} lbs.</ion-card-subtitle>
+      </ion-card-header>      
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label class="ion-text-wrap">
+              <b>Abilities:</b>
+              <span class="ion-text-capitalize" *ngFor="let a of pokemon.abilities; let isLast = last"> 
+                
+                <ion-chip slot="end" color="secondary" >
+                    <ion-label>{{a.ability.name}}</ion-label>
+                  </ion-chip>
+              </span>
+            </ion-label>
+          </ion-item>
+          <ion-item *ngFor="let s of pokemon.stats">
+            <ion-label class="ion-text-wrap" size="12" slot="start"><b>{{s.stat.name}}</b></ion-label>            
+            <ion-chip slot="end" color="tertiary" >
+              <ion-label>{{s.base_stat}}</ion-label>
+            </ion-chip>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
